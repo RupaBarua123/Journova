@@ -4,27 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Journova</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
-    <h1>Journova</h1>
-    <h2>Create an Account</h2>
+    <div class="register-container">
 
-    <form>
-        <label for="email">Email</label>
-        <br>
-        <input type="email" id="email" name="email">
-        <br><br>
+        <h1>Journova</h1>
+        <h2>Create an Account</h2>
 
-        <label for="password">Password</label>
-        <br>
-        <input type="password" id="password" name="password">
-        <br><br>
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
 
-        <button type="submit">Register</button>
-    </form>
+        <form method="POST">
 
-    <p>Already have an account? Login</p>
+            <label for="email">Email</label>
+            <input type="email"
+                   id="email"
+                   name="email"
+                   required>
+
+            <label for="password">Password</label>
+            <input type="password"
+                   id="password"
+                   name="password"
+                   required>
+
+            <button type="submit">Register</button>
+
+        </form>
+
+        <p class="login-text">
+            Already have an account? Login
+        </p>
+
+    </div>
 
 </body>
 </html>
