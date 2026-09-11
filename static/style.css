@@ -63,3 +63,27 @@ button:hover {
     text-align: center;
     margin-bottom: 15px;
 }
+
+/* Mood tracking options */
+
+.mood-options {
+    margin: 25px 0;
+}
+
+.mood-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    cursor: pointer;
+}
+
+.mood-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+}
+
+.mood-option span {
+    font-size: 18px;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Tracking - Journova</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="register-container">
+
+        <h1>Journova</h1>
+        <h2>Mood Tracking</h2>
+
+        <p>How are you feeling?</p>
+
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
+
+        <form method="POST">
+
+            <div class="mood-options">
+
+                <label class="mood-option">
+                    <input type="radio" name="mood" value="Positive" required>
+                    <span>Positive</span>
+                </label>
+
+                <label class="mood-option">
+                    <input type="radio" name="mood" value="Neutral">
+                    <span>Neutral</span>
+                </label>
+
+                <label class="mood-option">
+                    <input type="radio" name="mood" value="Negative">
+                    <span>Negative</span>
+                </label>
+
+            </div>
+
+            <button type="submit">Save Mood</button>
+
+        </form>
+
+        <p class="login-text">
+            <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+        </p>
+
+    </div>
+
+</body>
+</html>

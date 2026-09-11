@@ -107,6 +107,32 @@ def journal():
     return render_template("journal.html", message=message)
 
 
+@app.route("/mood", methods=["GET", "POST"])
+def mood():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    message = ""
+
+    if request.method == "POST":
+        selected_mood = request.form["mood"]
+
+        connection = get_db_connection()
+        cursor = connection.cursor()
+
+        cursor.execute(
+            "INSERT INTO mood_entries (user_id, mood) VALUES (?, ?)",
+            (session["user_id"], selected_mood)
+        )
+
+        connection.commit()
+        connection.close()
+
+        message = "Mood saved."
+
+    return render_template("mood.html", message=message)
+
+
 @app.route("/logout")
 def logout():
     session.clear()
