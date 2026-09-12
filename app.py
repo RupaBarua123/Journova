@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import sqlite3
 
 app = Flask(__name__)
 app.secret_key = "journova-development-key"
+
+analyzer = SentimentIntensityAnalyzer()
 
 
 def get_db_connection():
@@ -60,6 +63,7 @@ def login():
             "SELECT user_id, email, password FROM users WHERE email = ?",
             (email,)
         )
+
         user = cursor.fetchone()
         connection.close()
 
@@ -87,6 +91,7 @@ def journal():
         return redirect(url_for("login"))
 
     message = ""
+    sentiment_label = ""
 
     if request.method == "POST":
         entry_text = request.form["entry_text"]
@@ -99,12 +104,37 @@ def journal():
             (session["user_id"], entry_text)
         )
 
+        entry_id = cursor.lastrowid
+
+        scores = analyzer.polarity_scores(entry_text)
+        sentiment_score = scores["compound"]
+
+        if sentiment_score >= 0.05:
+            sentiment_label = "Positive"
+        elif sentiment_score <= -0.05:
+            sentiment_label = "Negative"
+        else:
+            sentiment_label = "Neutral"
+
+        cursor.execute(
+            """
+            INSERT INTO sentiment_results
+            (entry_id, sentiment_label, sentiment_score)
+            VALUES (?, ?, ?)
+            """,
+            (entry_id, sentiment_label, sentiment_score)
+        )
+
         connection.commit()
         connection.close()
 
         message = "Journal entry saved."
 
-    return render_template("journal.html", message=message)
+    return render_template(
+        "journal.html",
+        message=message,
+        sentiment_label=sentiment_label
+    )
 
 
 @app.route("/mood", methods=["GET", "POST"])
