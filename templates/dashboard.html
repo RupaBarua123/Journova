@@ -11,18 +11,42 @@
 
 <body>
 
-    <div class="register-container">
+    <div class="register-container dashboard-container">
 
         <h1>Journova</h1>
         <h2>Welcome</h2>
 
-        <p>You are logged in as {{ email }}</p>
+        <p class="dashboard-user">
+            You are logged in as {{ email }}
+        </p>
 
-        <p>Reflective Journal</p>
-        <p>Mood Tracking</p>
-        <p>Sentiment Feedback</p>
+        <div class="dashboard-option">
+            <h3>Reflective Journal</h3>
+            <p>Write and save your journal entries.</p>
+            <a class="dashboard-button"
+               href="{{ url_for('journal') }}">
+                Open Journal
+            </a>
+        </div>
 
-        <p>
+        <div class="dashboard-option">
+            <h3>Mood Tracking</h3>
+            <p>Record how you are feeling today.</p>
+            <a class="dashboard-button"
+               href="{{ url_for('mood') }}">
+                Record Mood
+            </a>
+        </div>
+
+        <div class="dashboard-option">
+            <h3>Emotional Tone Feedback</h3>
+            <p>
+                Emotional tone feedback is shown after you save
+                a journal entry.
+            </p>
+        </div>
+
+        <p class="login-text">
             <a href="{{ url_for('logout') }}">Logout</a>
         </p>
 

@@ -38,15 +38,15 @@ def register():
                 (email, password_hash)
             )
             connection.commit()
-            message = "Account created successfully."
+            connection.close()
+
+            return redirect(url_for("login"))
 
         except sqlite3.IntegrityError:
+            connection.close()
             message = "An account with this email already exists."
 
-        connection.close()
-
     return render_template("register.html", message=message)
-
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

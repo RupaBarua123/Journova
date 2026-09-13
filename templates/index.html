@@ -1,15 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journova</title>
-</head>
-<body>
-    <h1>Welcome to Journova</h1>
 
-    <p>
-        A reflective journaling application to suppoert the mental health and well-being of university students, including students with Autism Spectrum Disorder(ASD)
-    </p>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="home-container">
+
+        <h1>Journova</h1>
+
+        <h2>Reflect, understand and support your well-being.</h2>
+
+        <p class="home-description">
+            Journova is a reflective journaling application designed to support
+            university students in recording their thoughts, moods and emotional
+            patterns, including students with Autism Spectrum Disorder (ASD).
+        </p>
+
+        <div class="home-buttons">
+            <a class="home-button" href="{{ url_for('login') }}">Login</a>
+            <a class="home-button secondary-button"
+               href="{{ url_for('register') }}">Create Account</a>
+        </div>
+
+        <p class="home-note">
+            Journova supports self-reflection and emotional awareness.
+            It does not provide medical diagnosis or treatment.
+        </p>
+
+    </div>
+
 </body>
 </html>
